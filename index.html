@@ -2,7 +2,14 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07080A">
+<meta name="color-scheme" content="dark">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="מדד INVEX">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; media-src https:; connect-src https://www.over.org.il https://anchor.fm; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>מדד INVEX למשקיע</title>
@@ -296,6 +303,31 @@ ol.path.mini li.on .ph b{color:var(--txt);font-weight:700}
   ol.path .pt{padding:4px 48px 0 0}
   ol.path.mini{display:none}
 }
+/* footer social icons */
+.social{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 16px}
+.social a{display:inline-flex;flex-direction:column;align-items:center;gap:4px;min-width:64px;min-height:44px;padding:8px 6px;border:1px solid var(--line2);border-radius:12px;text-decoration:none;color:var(--txt);font-size:12px}
+.social a:hover{border-color:var(--cy);color:var(--cy2)}
+.social svg{width:24px;height:24px}
+/* about: tools list */
+.tools-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+@media(max-width:620px){.tools-list{grid-template-columns:1fr}}
+.tools-list a{display:block;text-decoration:none;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px}
+.tools-list a:hover{border-color:var(--cy)}
+.tools-list i{font-style:normal;color:var(--cy2);font-weight:800;font-size:12px;margin-left:6px}
+.tools-list b{font-size:14.5px}
+.tools-list span{display:block;font-size:12.5px;color:var(--mute);margin-top:2px}
+.lnk{padding:10px 0}
+.subtabs a{display:inline-flex;align-items:center;min-height:44px}
+footer a{display:inline-block;padding:12px 2px}
+/* cross-device: iOS Safari / Android Chrome */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{overflow-x:hidden}
+a,button{-webkit-tap-highlight-color:rgba(0,197,203,.18);touch-action:manipulation}
+@media(max-width:900px){
+  .ip input,.ip select,.filters .ip input{font-size:16px}
+  .mnav{padding-top:calc(10px + env(safe-area-inset-top))}
+  .content,.top .in{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+}
 /* podcast episodes */
 ol.eps{list-style:none;margin:0;padding:0}
 li.ep{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
@@ -333,6 +365,12 @@ li.ep audio{width:100%;max-width:520px;height:40px;display:block;margin-bottom:4
     </header>
     <div class="content"><div id="pathMini"></div><div id="view"></div></div>
     <footer>
+      <nav class="social" aria-label="INVEX ברשתות">
+        <a id="soTiktok" href="https://www.tiktok.com/@itayinvex" target="_blank" rel="noopener" aria-label="טיקטוק"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 3c.4 2.6 2.2 4.3 5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>טיקטוק</span></a>
+        <a id="soInsta" href="https://www.instagram.com/itay_invex/" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg><span>אינסטגרם</span></a>
+        <a id="soYt" href="https://www.youtube.com/channel/UC9GDdbR6apSXkYiYkM1PAjw/videos" target="_blank" rel="noopener" aria-label="יוטיוב"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor"/></svg><span>יוטיוב</span></a>
+        <a href="#podcast" aria-label="הפודקאסט"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>פודקאסט</span></a>
+      </nav>
       <div><b>מקור הנתונים:</b> <a href="https://www.over.org.il/projects/deals" target="_blank" rel="noopener">over.org.il · גרסאות לעם</a>, עסקאות המקרקעין שדווחו לרשות המסים (מיסוי מקרקעין), ו"נדל"ן לעם" לכתובות ולחלקות.</div>
       <div>הכלים מציגים ניתוח של נתונים גולמיים כפי שדווחו, ללא פרשנות. השווי הוא הסכום שדווח לרשות המסים, לא שמאות ולא מחיר שוק מאומת. מכירה אחת יכולה להופיע במאגר בכמה שורות, ולכן החציונים הם אינדיקציה. המידע אינו מהווה ייעוץ השקעות, ייעוץ מס, שמאות או חוות דעת משפטית, ואינו תחליף לייעוץ מקצועי המותאם אישית.</div>
       <div style="margin-top:6px"><a href="#about">אודות והצהרת נגישות</a> · <a href="#contact">צור קשר</a> · INVEX · בית השקעות לנדל"ן · רו"ח איתי יצחקיאן · <b>פיתוח ע״י יעל מזרחי</b></div>
@@ -375,6 +413,7 @@ var LINKS={
   facebook:'https://www.facebook.com/invexxfactor/',
   spotify:'https://open.spotify.com/show/6OJgFo5lfJZd2CFcMAlqqJ',
   spotifyEmbed:'https://open.spotify.com/embed/show/6OJgFo5lfJZd2CFcMAlqqJ',
+  apple:'https://podcasts.apple.com/il/podcast/id1797547479',
   site:'https://invex.co.il/'
 };
 
@@ -953,7 +992,7 @@ var RSS='https://anchor.fm/s/f546a064/podcast/rss';
 function safeUrl(u){u=String(u||'');return /^https:\/\//i.test(u)?u:'';}
 V.podcast=function(el,p){
   el.innerHTML='<div class="card"><h2>הזהב החדש בנדל"ן</h2><p class="cap">הפודקאסט של רו״ח איתי יצחקיאן. להקשיב בדרך, ולהגיע לעסקה עם שאלות טובות יותר.</p>'+
-    '<div class="cta-row"><a class="ghost" href="'+LINKS.spotify+'" target="_blank" rel="noopener">להאזנה ב-Spotify</a><a class="ghost" href="'+LINKS.youtube+'" target="_blank" rel="noopener">ביוטיוב</a></div></div>'+
+    '<div class="cta-row"><a class="go" href="'+LINKS.spotify+'" target="_blank" rel="noopener">כל הפרקים ב-Spotify >></a><a class="ghost" href="'+LINKS.apple+'" target="_blank" rel="noopener">Apple Podcasts</a><a class="ghost" href="'+LINKS.youtube+'" target="_blank" rel="noopener">YouTube</a><button type="button" class="ghost" onclick="document.getElementById(&quot;eps&quot;).scrollIntoView({behavior:&quot;smooth&quot;})">לרשימת הפרקים כאן ↓</button></div></div>'+
     '<div class="card"><h2>כל הפרקים</h2><div class="filters"><div class="ip fsearch"><input id="epQ" placeholder="חיפוש פרק, אורח או נושא…" autocomplete="off" aria-label="חיפוש פרקים"></div></div><div id="epSt" class="status">טוען פרקים…<div class="bar"><i></i></div></div><ol class="eps" id="eps"></ol></div>'+nextBox();
   fetch(RSS).then(function(r){if(!r.ok)throw new Error(r.status);return r.text();}).then(function(t){
     var x=new DOMParser().parseFromString(t,'text/xml'),IT='http://www.itunes.com/dtds/podcast-1.0.dtd';
@@ -995,7 +1034,14 @@ V.contact=function(el){
 
 /* ---------- about ---------- */
 V.about=function(el,p){
-  el.innerHTML='<div class="card prose"><h2>מה הכלי הזה</h2><p>מדד INVEX למשקיע מסדר עסקאות נדל"ן שדווחו לרשות המסים, כך שמשקיע יוכל לבדוק בעצמו מה קרה בשוק: באיזה מחיר נמכרו דירות, איפה, ומתי.</p>'+
+  function nm(id){return VIEWS.filter(function(v){return v.id===id;})[0];}
+  el.innerHTML='<div class="card"><h2>מה האפליקציה עושה</h2>'+
+    '<p class="lead" style="margin:0 0 14px">יש מי שקונה לפי תחושה.<br>ויש מי שקונה לפי עסקאות שנסגרו.<br><b>האפליקציה הזו בשביל השני.</b></p>'+
+    '<p class="cap">מדד INVEX למשקיע מסדר את כל עסקאות הנדל"ן שדווחו לרשות המסים מאז 1998, כך שתוכלו לבדוק בעצמכם, בחינם ובלי הרשמה, באיזה מחיר נמכרו דירות, איפה ומתי. 8 כלים, ב-4 שלבים:</p>'+
+    pathHTML()+
+    '<div class="tools-list">'+VIEWS.filter(function(v){return !v.g;}).map(function(v){return '<a href="#'+v.id+'"><i class="num">'+v.ic+'</i><b>'+v.name+'</b><span>'+esc(v.sub)+'</span></a>';}).join('')+'</div>'+
+    '<p class="cap" style="margin:14px 0 0">ובנוסף: <a class="lnk" href="#calc">מחשבונים</a> · <a class="lnk" href="#us?t=journey">מסע המשקיע</a> · <a class="lnk" href="#podcast">הפודקאסט</a></p></div>'+
+    '<div class="card prose"><h2>מה הכלי הזה</h2><p>מדד INVEX למשקיע מסדר עסקאות נדל"ן שדווחו לרשות המסים, כך שמשקיע יוכל לבדוק בעצמו מה קרה בשוק: באיזה מחיר נמכרו דירות, איפה, ומתי.</p>'+
     '<h2>מאיפה הנתונים</h2><p>נתוני העסקאות מגיעים מ-<a href="https://www.over.org.il/projects/deals" target="_blank" rel="noopener">OVER.ORG.IL</a> (גרסאות לעם), שאוסף את מאגר מיסוי מקרקעין של רשות המסים: עסקאות מאז 1998. כתובות וחלקות מגיעות מ"נדל"ן לעם" באותו אתר. הנתונים נמשכים בזמן אמת בכל בדיקה.</p>'+
     '<h2>איך מחשבים</h2><ul><li>חציון ולא ממוצע. ממוצע זז ממכירה חריגה אחת.</li><li>ההשוואות מתייחסות ל"דירה בבית קומות", אלא אם נכתב אחרת.</li><li>"בנייה חדשה" = בניין שנבנה ב-5 השנים האחרונות, כולל פריסייל (שנת בנייה עתידית).</li><li>לא נכללות עסקאות על חלק מנכס, ועסקאות בלי שטח או שווי.</li><li>בהשוואת מחירים מוסרות חריגות קיצון (שיטת IQR), וכתוב כמה הוסרו.</li></ul>'+
     '<h2>מה הכלי לא אומר</h2><p class="disc-big">הכלים מציגים ניתוח של נתונים גולמיים כפי שדווחו, ללא פרשנות. השווי הוא הסכום שדווח לרשות המסים, ולא שמאות או מחיר שוק מאומת. מכירה אחת יכולה להופיע במאגר בכמה שורות, ולכן החציונים הם אינדיקציה בלבד. ייתכנו חוסרים וטעויות במקור. המידע אינו מהווה ייעוץ השקעות, ייעוץ מס, שמאות או חוות דעת משפטית, ואינו תחליף לייעוץ מקצועי המותאם אישית. כל החלטה צריכה להתקבל אחרי בדיקה מקצועית.</p>'+
@@ -1029,8 +1075,9 @@ V.about=function(el,p){
 /* ================= router ================= */
 function navHTML(cur,flat){
   var a=function(v){return '<a href="#'+v.id+'"'+(v.id===cur?' class="on" aria-current="page"':'')+'><i aria-hidden="true">'+v.ic+'</i>'+v.name+'</a>';};
-  if(flat)return VIEWS.map(a).join('');
-  return '<div class="nav-l">כלים למשקיע</div>'+VIEWS.filter(function(v){return !v.g;}).map(a).join('')+'<div class="nav-l" style="margin-top:14px">INVEX</div>'+VIEWS.filter(function(v){return v.g;}).map(a).join('');
+  var about=VIEWS.filter(function(v){return v.id==='about';}),rest=VIEWS.filter(function(v){return v.id!=='about';});
+  if(flat)return about.concat(rest).map(a).join('');
+  return about.map(a).join('')+'<div class="nav-l" style="margin-top:10px">כלים למשקיע</div>'+rest.filter(function(v){return !v.g;}).map(a).join('')+'<div class="nav-l" style="margin-top:14px">INVEX</div>'+rest.filter(function(v){return v.g;}).map(a).join('');
 }
 function route(){
   var h=location.hash.replace(/^#/,''),parts=h.split('?'),id=parts[0]||'home',v=VIEWS.filter(function(x){return x.id===id;})[0]||VIEWS[0];
