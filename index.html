@@ -319,6 +319,62 @@ ol.path.mini li.on .ph b{color:var(--txt);font-weight:700}
 .lnk{padding:10px 0}
 .subtabs a{display:inline-flex;align-items:center;min-height:44px}
 footer a{display:inline-block;padding:12px 2px}
+/* ===== v5: app shell (mobile app bar, drawer, tab bar), favorites, personal area ===== */
+.appbar,.tabbar{display:none}
+.mnav[hidden]{display:none!important}
+.scrim[hidden]{display:none}
+.fav-row{display:flex;justify-content:flex-start;margin:0 0 12px}
+button.fav{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--line2);background:var(--panel2);color:var(--txt);font-size:14px;cursor:pointer}
+button.fav svg{width:20px;height:20px;fill:none}
+button.fav[aria-pressed="true"]{border-color:var(--am);color:var(--am)}
+button.fav[aria-pressed="true"] svg{fill:var(--am)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;z-index:95;background:var(--txt);color:#07080A;font-size:14px;font-weight:500;padding:10px 16px;border-radius:12px;pointer-events:none;transition:opacity .2s,transform .2s;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.qa{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:0 0 16px}
+.qa-i{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:var(--txt);font-size:12.5px;text-align:center;min-height:44px}
+.qa-i span{width:52px;height:52px;border-radius:50%;border:1px solid var(--line2);background:var(--panel);display:flex;align-items:center;justify-content:center;color:var(--cy2)}
+.qa-i:hover span{border-color:var(--cy)}
+.qa-i svg{width:24px;height:24px}
+.me-hero .qa{grid-template-columns:repeat(4,1fr);margin:16px 0 0}
+ul.favlist{list-style:none;margin:0;padding:0}
+ul.favlist li{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding:10px 0}
+ul.favlist li:last-child{border-bottom:0}
+ul.favlist li>a{flex:1;min-width:0;text-decoration:none;color:var(--txt);display:block}
+ul.favlist .ft{display:block;font-size:11.5px;color:var(--cy2);font-weight:700}
+ul.favlist b{display:block;font-size:15px;font-weight:700}
+ul.favlist .fs{display:block;font-size:13px;color:var(--mute)}
+ul.favlist .fd{display:block;font-size:12px;color:var(--dim)}
+.ferr{color:var(--am);font-size:13.5px;margin:8px 0 0;min-height:1em}
+body.noscroll{overflow:hidden}
+@media(max-width:900px){
+  .appbar{display:flex;align-items:center;justify-content:space-between;gap:8px;position:sticky;top:0;z-index:60;height:calc(56px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 8px 0;background:rgba(7,8,10,.97);border-bottom:1px solid var(--line)}
+  .ab-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:0;color:var(--txt);border-radius:12px;cursor:pointer}
+  .ab-btn svg{width:26px;height:26px}
+  .ab-wa{color:#25D366}
+  .ab-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--mute);font-size:12.5px}
+  .ab-logo img{height:24px}
+  .side{display:flex!important;position:fixed;top:0;right:0;bottom:0;width:84%;max-width:320px;height:100%;z-index:90;transform:translateX(105%);transition:transform .22s ease;padding-top:calc(18px + env(safe-area-inset-top));padding-bottom:calc(18px + env(safe-area-inset-bottom));box-shadow:none}
+  .side.open{transform:none;visibility:visible}
+  .side:not(.open){visibility:hidden;transition:transform .22s ease,visibility 0s .22s}
+  html{overflow-x:hidden}
+  .scrim{position:fixed;inset:0;z-index:85;background:rgba(0,0,0,.55)}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(7,8,10,.98);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+  .tabbar a,.tabbar button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:52px;text-decoration:none;color:var(--mute);font-size:11px;background:none;border:0;cursor:pointer}
+  .tabbar svg{width:24px;height:24px}
+  .tabbar a.on{color:var(--cy2)}
+  .tabbar .tb-main{color:#001314}
+  .tabbar .tb-main svg{width:46px;height:46px;padding:11px;border-radius:50%;background:var(--cy);margin-top:-18px;border:3px solid #07080A}
+  .tabbar .tb-main span{color:var(--cy2);font-weight:700}
+  .tb-count{position:absolute;top:2px;left:calc(50% - 22px);min-width:18px;height:18px;border-radius:9px;background:var(--am);color:#07080A;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+  .tb-count[hidden]{display:none}
+  .mbar{display:none!important}
+  footer{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  .a11y-btn{bottom:calc(84px + env(safe-area-inset-bottom))!important}
+  .a11y-panel{bottom:calc(136px + env(safe-area-inset-bottom))!important}
+  .toast{bottom:calc(84px + env(safe-area-inset-bottom))}
+  .qa{grid-template-columns:repeat(3,1fr);row-gap:14px}
+}
+@media(prefers-reduced-motion:reduce){.side,.toast{transition:none}}
 /* cross-device: iOS Safari / Android Chrome */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{overflow-x:hidden}
@@ -344,14 +400,20 @@ li.ep audio{width:100%;max-width:520px;height:40px;display:block;margin-bottom:4
 <body>
 <datalist id="cityList"></datalist>
 <div class="shell">
-  <aside class="side">
+  <aside class="side" id="sideNav" aria-label="תפריט ראשי">
     <a class="brand" href="#home"><img src="https://invex.co.il/wp-content/uploads/2024/11/logo.png" alt="INVEX"><b>מדד INVEX למשקיע</b><span>המספרים מספרים את סיפור ההשקעה</span></a>
     <div class="side-cta"><a class="go" id="sBook" href="#" target="_blank" rel="noopener">קביעת שיחה >></a><a class="wa" id="sWa" href="#" target="_blank" rel="noopener">ווטסאפ</a></div>
     <nav class="nav" id="nav"></nav>
     <div class="foot">נתוני עסקאות: <a href="https://www.over.org.il/projects/deals" target="_blank" rel="noopener">over.org.il</a><br>עדכון אחרון במאגר: <b id="lastDeal">—</b></div>
   </aside>
   <div class="main">
-    <nav class="mnav" id="mnav"></nav>
+    <nav class="mnav" id="mnav" hidden></nav>
+    <header class="appbar">
+      <button type="button" class="ab-btn" id="menuBtn" aria-label="פתיחת התפריט" aria-expanded="false" aria-controls="sideNav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <a class="ab-logo" href="#home" aria-label="מדד INVEX, דף הבית"><img src="https://invex.co.il/wp-content/uploads/2024/11/logo.png" alt="INVEX"><span>מדד למשקיע</span></a>
+      <a class="ab-btn ab-wa" id="abWa" href="#" target="_blank" rel="noopener" aria-label="ווטסאפ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8.3 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9.5c.3 2.5 2.4 4.6 5 5l1.2-1.3-1.8-.9-.8.8c-1-.4-1.7-1.1-2.1-2.1l.8-.8-.9-1.8z" fill="currentColor"/></svg></a>
+    </header>
+    <div class="scrim" id="scrim" hidden></div>
     <header class="top">
       <div class="band"><img src="https://invex-calculators.netlify.app/band.jpg" alt=""></div>
       <div class="in">
@@ -377,7 +439,14 @@ li.ep audio{width:100%;max-width:520px;height:40px;display:block;margin-bottom:4
     </footer>
   </div>
 </div>
-<div class="mbar"><a class="go" id="mBook" href="#" target="_blank" rel="noopener">קביעת שיחה >></a><a class="wa" id="mWa" href="#" target="_blank" rel="noopener">ווטסאפ</a></div>
+<nav class="tabbar" aria-label="ניווט מהיר">
+  <a href="#home" data-t="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>בית</span></a>
+  <a href="#check" data-t="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>בדיקת מחיר</span></a>
+  <a class="tb-main" id="mBook" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h3l1.5 4.5-2 1.3a11 11 0 0 0 6.7 6.7l1.3-2L21 15v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>קביעת שיחה</span></a>
+  <a href="#me" data-t="me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l2.4 5 5.4.6-4 3.7 1.1 5.4L12 16l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>השמורים שלי</span><b class="tb-count" id="favCount" hidden></b></a>
+  <button type="button" id="tbMenu" aria-label="כל הכלים והתפריט" aria-controls="sideNav" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="18" cy="12" r="1.6" fill="currentColor"/></svg><span>עוד</span></button>
+</nav>
+<a class="hidden" id="mWa" href="#"></a>
 <button type="button" class="a11y-btn" id="a11yBtn" aria-label="תפריט נגישות" aria-expanded="false" aria-controls="a11yPanel"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="4.5" r="2" fill="currentColor"/><path d="M5 8.5l7 1.5 7-1.5M12 10v5m0 0l-3.5 6M12 15l3.5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="הגדרות נגישות" hidden>
   <b>נגישות</b>
@@ -430,6 +499,7 @@ var VIEWS=[
   {id:'us',    ic:'IN',g:'inv',name:'מי אנחנו',   title:'רו״ח. <em>לא</em> מתווך.',                   sub:'מי אנחנו, מה אנחנו עושים, ואיך נראה המסע של משקיע איתנו.'},
   {id:'podcast',ic:'▶',g:'inv',name:'פודקאסט',    title:'להקשיב <em>לפני</em> שקונים',                sub:'שיחות על נדל"ן, מיסוי ועסקאות. בקול, בלי מצגות.'},
   {id:'contact',ic:'@',g:'inv',name:'צור קשר',    title:'בואו <em>נדבר</em>',                         sub:'שיחה, ווטסאפ, או פשוט לעקוב.'},
+  {id:'me',    ic:'★', g:'inv',name:'האזור האישי', title:'האזור <em>האישי</em> שלכם',                 sub:'הערים שאתם עוקבים אחריהן, הבדיקות ששמרתם, וההגדרות שלכם.'},
   {id:'about', ic:'i', g:'inv',name:'אודות',      title:'אודות <em>הכלי</em>',                        sub:'מאיפה הנתונים, איך מחשבים, ומה הכלי לא אומר.'}
 ];
 var ITAI={
@@ -637,6 +707,18 @@ function exclText(e){var p=[];if(e.area)p.push(e.area+' בשטח אחר');if(e.y
 /* ================= views ================= */
 var V={};
 
+/* ---------- quick actions (round icons) ---------- */
+function qaRow(){
+  function q(h,t,d,ext){return '<a class="qa-i" href="'+h+'"'+(ext?' target="_blank" rel="noopener"':'')+'><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+d+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'+t+'</a>';}
+  return '<nav class="qa qa-home" aria-label="פעולות מהירות">'+
+    q('#check','בדיקת מחיר','M4 19h16M7 16V9m5 7V5m5 11v-4')+
+    q('#city','תמונת עיר','M4 20V9l5-4 5 4v11M14 20V12h6v8M4 20h16')+
+    q('#map','מפה','M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14')+
+    q('#me','השמורים שלי','M12 4l2.4 5 5.4.6-4 3.7 1.1 5.4L12 16l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z')+
+    q(LINKS.wa,'ווטסאפ','M4 20l1.3-4A8 8 0 1 1 8.3 19z',1)+
+    q(LINKS.book,'קביעת שיחה','M6 3h3l1.5 4.5-2 1.3a11 11 0 0 0 6.7 6.7l1.3-2L21 15v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z',1)+'</nav>';
+}
+
 /* ---------- investor path (4 stages) ---------- */
 var PATH=[
   {n:1,name:'להבין את השוק',tools:['city','map']},
@@ -657,6 +739,7 @@ V.home=function(el){
   '<div class="card"><h2>מאיפה מתחילים?</h2><p class="cap">כותבים יישוב ומקבלים את התמונה המלאה שלו</p>'+
   '<div class="hsearch"><div class="ip"><input id="hCity" list="cityList" autocomplete="off" placeholder="איזה יישוב בודקים?"></div><button class="go" id="hGo">לתמונת העיר >></button></div>'+
   '<div class="hint">יש לכם כתובת מדויקת? <a class="lnk" href="#address">לסיפור הכתובת</a> · יש לכם מחיר מבוקש? <a class="lnk" href="#check">המחיר מול השוק</a></div></div>'+
+  qaRow()+
   '<div class="card"><h2>מסלול המשקיע</h2><p class="cap">4 שלבים. מתחילים מהשוק, ומגיעים לעסקה אחת.</p>'+pathHTML()+'</div>'+
   '<div class="card"><h2 id="hmTitle">איפה המחיר והביקוש עלו יחד</h2><p class="cap" id="hmCap">טוען…</p><div class="tw" id="hmTbl"></div><div class="hint"><a class="lnk" href="#rank">לדירוג המלא, עם כל היישובים >></a></div></div>'+
   nextBox();
@@ -693,7 +776,7 @@ V.city=function(el,p){
     var ytd=cur&&last?(cur.median_ppsqm_normalized/last.median_ppsqm_normalized-1)*100:NaN;
     var recent=clean(r[2].rows,{trim:false}).rows,yMin=TY-NEW_YEARS;
     var nw=recent.filter(function(d){return d.year_built>=yMin;}).map(function(d){return d.ppsqm;}),od=recent.filter(function(d){return d.year_built>0&&d.year_built<yMin;}).map(function(d){return d.ppsqm;});
-    var html='<div class="grid4" style="margin-bottom:16px">'+
+    var html='<div class="fav-row">'+favBtn({type:'city',key:'city:'+c,title:c,href:'#city?'+qs({c:c})})+'</div><div class="grid4" style="margin-bottom:16px">'+
       '<div class="kpi"><div class="v num cy">'+(cur?k(cur.median_ppsqm_normalized):'—')+'</div><div class="l">₪ למ״ר, '+TY+' עד היום</div><div class="d '+(ytd>=0?'am':'cy')+'">'+(isFinite(ytd)?pct(ytd,1)+' מול '+LY:'')+'</div></div>'+
       '<div class="kpi"><div class="v num">'+(last?M(last.median_amount):'—')+'</div><div class="l">דירה חציונית ב-'+LY+'</div><div class="d mu">'+(last?nf0.format(last.median_area)+' מ״ר חציוני':'')+'</div></div>'+
       '<div class="kpi"><div class="v num am">'+pct(ch5,1)+'</div><div class="l">שינוי במחיר למ״ר, 5 שנים</div><div class="d mu">'+(isFinite(cg5)?pct(cg5)+' בשנה בממוצע':'')+'</div></div>'+
@@ -754,7 +837,7 @@ V.check=function(el,p){
     var scope=useNear?'בקילומטר סביב '+inp.street+' '+inp.hn:'בכל '+inp.city,kind=inp.mode==='new'?'דירות חדשות':'דירות';
     var big=diff<=-5?nf0.format(-diff)+'% מתחת לחציון':diff<5?'בגובה החציון':nf0.format(diff)+'% מעל החציון',cls=diff<5?'cy':'am';
     var gap=(med-ask)*inp.area;
-    $('#kOut').innerHTML='<div class="card"><div class="big num '+cls+'">'+big+'</div><div style="color:var(--mute);margin-top:4px">'+below+' מתוך '+s.length+' עסקאות על '+kind+' של '+(inp.rooms>=6?'6+':inp.rooms)+' חדרים '+esc(scope)+' נסגרו במחיר למ״ר נמוך משלכם ('+inp.months+' חודשים אחרונים).</div>'+
+    $('#kOut').innerHTML='<div class="card"><div class="fav-row">'+favBtn({type:'check',key:'check:'+location.hash,title:inp.city+(inp.street?' · '+inp.street+' '+inp.hn:'')+' · '+(inp.rooms>=6?'6+':inp.rooms)+' חד׳ · '+inp.area+' מ״ר · '+M(inp.price),sub:big+' ('+k(ask)+' ₪ למ״ר)',href:location.hash})+'</div><div class="big num '+cls+'">'+big+'</div><div style="color:var(--mute);margin-top:4px">'+below+' מתוך '+s.length+' עסקאות על '+kind+' של '+(inp.rooms>=6?'6+':inp.rooms)+' חדרים '+esc(scope)+' נסגרו במחיר למ״ר נמוך משלכם ('+inp.months+' חודשים אחרונים).</div>'+
       '<div class="grid4" style="margin-top:16px"><div class="kpi"><div class="v num am">'+k(ask)+'</div><div class="l">שלכם, ₪ למ״ר</div></div><div class="kpi"><div class="v num cy">'+k(med)+'</div><div class="l">חציון העסקאות</div></div><div class="kpi"><div class="v num">'+k(quant(s,.25))+'–'+k(quant(s,.75))+'</div><div class="l">חצי מהעסקאות בטווח</div></div><div class="kpi"><div class="v num '+(gap>=0?'cy':'am')+'">'+(gap>=0?'':'−')+ils(Math.abs(gap))+'</div><div class="l">'+(gap>=0?'מתחת לחציון, לכל הדירה':'מעל החציון, לכל הדירה')+'</div></div></div>'+
       (near&&!useNear?'<div class="hint">ליד הכתובת נמצאו רק '+near.rows.length+' עסקאות דומות, לכן ההשוואה היא לכל היישוב.</div>':'')+'</div>'+
       '<div class="card"><h2>איפה המחיר שלכם נופל</h2><p class="cap">כל נקודה היא עסקה אחת. הפס הבהיר: חצי מהעסקאות.</p><div id="kStrip"></div><div class="legend"><span style="--c:var(--cy)">עסקה שנסגרה</span><span style="--c:var(--am)">המחיר שלכם</span></div></div>'+
@@ -797,7 +880,7 @@ V.deals=function(el,p){
     if(!cl.rows.length){status(st,'לא נמצאו עסקאות. נסו להרחיב את הסינון.','err');return;}
     st.classList.add('hidden');
     var s=cl.rows.map(function(d){return d.ppsqm;}).sort(function(a,b){return a-b;});
-    $('#dOut').innerHTML='<div class="grid4" style="margin-bottom:16px"><div class="kpi"><div class="v num">'+nf0.format(cl.rows.length)+'</div><div class="l">עסקאות</div></div><div class="kpi"><div class="v num cy">'+k(quant(s,.5))+'</div><div class="l">₪ למ״ר חציוני</div></div><div class="kpi"><div class="v num">'+M(median(cl.rows.map(function(d){return d.amount;})))+'</div><div class="l">שווי חציוני</div></div><div class="kpi"><div class="v num am">'+cl.rows.filter(function(d){return d.year_built>TY;}).length+'</div><div class="l">מתוכן פריסייל</div></div></div>'+
+    $('#dOut').innerHTML='<div class="fav-row">'+favBtn({type:'deals',key:'deals:'+location.hash,title:p.c+(p.rooms?' · '+(p.rooms>=6?'6+':p.rooms)+' חד׳':'')+' · '+cl.rows.length+' עסקאות',sub:'₪ למ״ר חציוני '+k(quant(s,.5)),href:location.hash})+'</div><div class="grid4" style="margin-bottom:16px"><div class="kpi"><div class="v num">'+nf0.format(cl.rows.length)+'</div><div class="l">עסקאות</div></div><div class="kpi"><div class="v num cy">'+k(quant(s,.5))+'</div><div class="l">₪ למ״ר חציוני</div></div><div class="kpi"><div class="v num">'+M(median(cl.rows.map(function(d){return d.amount;})))+'</div><div class="l">שווי חציוני</div></div><div class="kpi"><div class="v num am">'+cl.rows.filter(function(d){return d.year_built>TY;}).length+'</div><div class="l">מתוכן פריסייל</div></div></div>'+
       '<div class="card"><h2>כל העסקאות</h2><p class="cap">'+esc(p.c)+(p.rooms?' · '+(p.rooms>=6?'6+':p.rooms)+' חדרים':'')+' · '+(r.capped?'1,000 העסקאות האחרונות':'כל התקופה')+'. מיון בלחיצה על כותרת, הורדה לאקסל בכפתור.</p><div id="dTbl"></div><div class="excl">'+exclText(cl.ex)+' <a class="lnk" href="'+esc(r.first&&r.first.row_url||'https://www.over.org.il/projects/deals')+'" target="_blank" rel="noopener">לשורות המקור ב-over.org.il</a></div></div>'+nextBox();
     dealTable($('#dTbl'),cl.rows,{name:p.c,shown:50});
   }).catch(function(e){status(st,'המאגר לא ענה כרגע ('+esc(e.message)+').','err');});
@@ -839,7 +922,7 @@ V.address=function(el,p){
     rep.sort(function(a,b){return a.l.date<b.l.date?1:-1;});
     var cgM=rep.length?median(rep.map(function(r){return r.cg;})):NaN;
     var first=rows.reduce(function(m,d){return d.date<m?d.date:m;},'9999'),last=rows.reduce(function(m,d){return d.date>m?d.date:m;},'0');
-    $('#aOut').innerHTML='<div class="grid4" style="margin-bottom:16px">'+
+    $('#aOut').innerHTML='<div class="fav-row">'+favBtn({type:'address',key:'addr:'+x.pc.g+'/'+x.pc.h,title:(addrs.length?addrs[0]:'גוש '+x.pc.g+' חלקה '+x.pc.h),sub:rows.length+' עסקאות'+(isFinite(cgM)?' · '+pct(cgM)+' בשנה':''),href:'#address?'+qs({g:x.pc.g,h:x.pc.h})})+'</div><div class="grid4" style="margin-bottom:16px">'+
       '<div class="kpi"><div class="v num">'+nf0.format(rows.length)+'</div><div class="l">עסקאות על החלקה</div><div class="d mu">'+dmy(first)+' עד '+dmy(last)+'</div></div>'+
       '<div class="kpi"><div class="v num">'+(gz.building_year_min?(gz.building_year_min+(gz.building_year_max&&gz.building_year_max!==gz.building_year_min?'–'+gz.building_year_max:'')):'—')+'</div><div class="l">שנת בנייה</div><div class="d mu">'+(gz.floors_max?gz.floors_max+' קומות':'')+(gz.n_dwellings?' · '+gz.n_dwellings+' יח״ד':'')+'</div></div>'+
       '<div class="kpi"><div class="v num cy">'+rep.length+'</div><div class="l">דירות שנמכרו פעמיים ומעלה</div></div>'+
@@ -865,7 +948,7 @@ V.vs=function(el,p){
       return {c:cs[i],col:cols[i],l:l,ch5:l&&f5?(l.median_ppsqm_normalized/f5.median_ppsqm_normalized-1)*100:NaN,cg5:l&&f5?cagr(f5.median_ppsqm_normalized,l.median_ppsqm_normalized,5):NaN,cg10:l&&f10?cagr(f10.median_ppsqm_normalized,l.median_ppsqm_normalized,10):NaN,
         pts:(r.data||[]).filter(function(s){return s.deals>=15&&s.year>=TY-15;}).map(function(s){return {x:s.year,y:s.median_ppsqm_normalized};})};});
     var cheap=rows.slice().sort(function(a,b){return (a.l?a.l.median_ppsqm_normalized:1e9)-(b.l?b.l.median_ppsqm_normalized:1e9);})[0],fast=rows.slice().sort(function(a,b){return (b.cg5||-1e9)-(a.cg5||-1e9);})[0];
-    $('#vOut').innerHTML='<div class="card"><h2>המחיר למ״ר, '+(TY-15)+' עד היום</h2><p class="cap">חציון שנתי, דירות בבית משותף'+(p.rooms?', '+(p.rooms>=6?'6+':p.rooms)+' חדרים':'')+'</p><div id="vLine"></div><div class="legend">'+rows.map(function(r){return '<span style="--c:'+r.col+'">'+esc(r.c)+'</span>';}).join('')+'</div></div>'+
+    $('#vOut').innerHTML='<div class="fav-row">'+favBtn({type:'vs',key:'vs:'+cs.join('|')+'|'+(p.rooms||''),title:cs.join(' מול '),sub:p.rooms?(p.rooms>=6?'6+':p.rooms)+' חדרים':'כל הדירות',href:location.hash})+'</div><div class="card"><h2>המחיר למ״ר, '+(TY-15)+' עד היום</h2><p class="cap">חציון שנתי, דירות בבית משותף'+(p.rooms?', '+(p.rooms>=6?'6+':p.rooms)+' חדרים':'')+'</p><div id="vLine"></div><div class="legend">'+rows.map(function(r){return '<span style="--c:'+r.col+'">'+esc(r.c)+'</span>';}).join('')+'</div></div>'+
       '<div class="card"><h2>ראש בראש</h2><div class="tw"><table class="t"><thead><tr><th>יישוב</th><th>₪ למ״ר '+LY+'</th><th>דירה חציונית</th><th>5 שנים</th><th>בשנה (5)</th><th>בשנה (10)</th><th>עסקאות '+LY+'</th></tr></thead><tbody>'+rows.map(function(r){
         return '<tr><td class="p" style="color:'+r.col+'">'+esc(r.c)+'</td><td class="num">'+(r.l?nf0.format(r.l.median_ppsqm_normalized):'—')+'</td><td class="num">'+(r.l?M(r.l.median_amount):'—')+'</td><td class="num">'+pct(r.ch5,1)+'</td><td class="num p">'+pct(r.cg5)+'</td><td class="num">'+pct(r.cg10)+'</td><td class="num">'+(r.l?nf0.format(r.l.deals):'—')+'</td></tr>';}).join('')+'</tbody></table></div>'+
       '<div class="hint">הזול ביותר למ״ר: <b class="cy">'+esc(cheap.c)+'</b> · העלה הכי מהר ב-5 שנים: <b class="am">'+esc(fast.c)+'</b>'+(cheap.c===fast.c?'. זול וגם עולה מהר? שווה בדיקה לעומק.':'.')+'</div></div>'+nextBox();
@@ -1045,7 +1128,7 @@ V.about=function(el,p){
     '<h2>מאיפה הנתונים</h2><p>נתוני העסקאות מגיעים מ-<a href="https://www.over.org.il/projects/deals" target="_blank" rel="noopener">OVER.ORG.IL</a> (גרסאות לעם), שאוסף את מאגר מיסוי מקרקעין של רשות המסים: עסקאות מאז 1998. כתובות וחלקות מגיעות מ"נדל"ן לעם" באותו אתר. הנתונים נמשכים בזמן אמת בכל בדיקה.</p>'+
     '<h2>איך מחשבים</h2><ul><li>חציון ולא ממוצע. ממוצע זז ממכירה חריגה אחת.</li><li>ההשוואות מתייחסות ל"דירה בבית קומות", אלא אם נכתב אחרת.</li><li>"בנייה חדשה" = בניין שנבנה ב-5 השנים האחרונות, כולל פריסייל (שנת בנייה עתידית).</li><li>לא נכללות עסקאות על חלק מנכס, ועסקאות בלי שטח או שווי.</li><li>בהשוואת מחירים מוסרות חריגות קיצון (שיטת IQR), וכתוב כמה הוסרו.</li></ul>'+
     '<h2>מה הכלי לא אומר</h2><p class="disc-big">הכלים מציגים ניתוח של נתונים גולמיים כפי שדווחו, ללא פרשנות. השווי הוא הסכום שדווח לרשות המסים, ולא שמאות או מחיר שוק מאומת. מכירה אחת יכולה להופיע במאגר בכמה שורות, ולכן החציונים הם אינדיקציה בלבד. ייתכנו חוסרים וטעויות במקור. המידע אינו מהווה ייעוץ השקעות, ייעוץ מס, שמאות או חוות דעת משפטית, ואינו תחליף לייעוץ מקצועי המותאם אישית. כל החלטה צריכה להתקבל אחרי בדיקה מקצועית.</p>'+
-    '<h2>פרטיות</h2><p>הכלים לא אוספים פרטים אישיים. מה שמזינים (יישוב, מחיר, כתובת) נשלח למאגר הנתונים רק לצורך החישוב, ולא נשמר אצלנו. העדפות הנגישות נשמרות בדפדפן שלכם בלבד.</p>'+
+    '<h2>פרטיות</h2><p>הכלים לא אוספים פרטים אישיים. מה שמזינים (יישוב, מחיר, כתובת) נשלח למאגר הנתונים רק לצורך החישוב, ולא נשמר אצלנו. העדפות הנגישות, השמורים והפרטים באזור האישי נשמרים בדפדפן שלכם בלבד. הם לא נשלחים אלינו או לשום מקום אחר, ואפשר למחוק אותם בכל רגע מהאזור האישי.</p>'+
     '<h2 id="a11y">הצהרת נגישות</h2><p>אנחנו רואים חשיבות בהנגשת הכלים לכל משתמש, ופועלים להתאמתם לתקן הישראלי ת"י 5568 (WCAG 2.0, רמה AA). באתר: כפתור נגישות עם הגדלת טקסט, ניגודיות גבוהה, הדגשת קישורים, עצירת אנימציות וגופן קריא; ניווט מלא במקלדת; תיאור טקסטואלי לתמונות; ותמיכה בקוראי מסך.</p><p>חלק מהרכיבים (מפה וגרפים) מוצגים גם כטבלאות. אם נתקלתם בבעיה, נשמח לשמוע.</p><p><b>רכזת הנגישות:</b> יעל מזרחי · <a href="mailto:'+LINKS.mail+'">'+LINKS.mail+'</a> · '+LINKS.phone+'<br>עודכן: 15.10.2026</p></div>'+nextBox();
   if(p.s==='a11y')setTimeout(function(){var a=$('#a11y');if(a)a.scrollIntoView({block:'start'});},50);
 };
@@ -1068,6 +1151,67 @@ V.about=function(el,p){
   apply();
 })();
 
+/* ================= favorites (stored on this device only) ================= */
+var FAV_KEY='invex-favs',PROF_KEY='invex-profile';
+function lsGet(k,d){try{var v=JSON.parse(localStorage.getItem(k)||'null');return v==null?d:v;}catch(e){return d;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){return false;}}
+function favs(){var f=lsGet(FAV_KEY,[]);return Array.isArray(f)?f.filter(function(x){return x&&x.key&&x.href&&/^#[a-z]+/.test(x.href);}):[];}
+function isFav(key){return favs().some(function(f){return f.key===key;});}
+function toggleFav(item){var f=favs(),i=-1;f.forEach(function(x,j){if(x.key===item.key)i=j;});
+  if(i>-1)f.splice(i,1);else f.unshift({key:item.key,type:item.type,title:String(item.title).slice(0,120),sub:String(item.sub||'').slice(0,160),href:item.href,at:new Date().toISOString().slice(0,10)});
+  lsSet(FAV_KEY,f.slice(0,60));updateFavCount();return i<0;}
+var FAV_TYPE={city:'עיר במעקב',check:'בדיקת מחיר',address:'כתובת',vs:'השוואת ערים',deals:'עסקאות להשוואה'};
+var FAV_ITEMS={},favSeq=0;
+function favBtn(item){var id='f'+(++favSeq);FAV_ITEMS[id]=item;var on=isFav(item.key);
+  return '<button type="button" class="fav" data-fav="'+id+'" aria-pressed="'+on+'">'+favIcon()+'<span>'+(on?(item.type==='city'?'במעקב':'שמור'):(item.type==='city'?'לעקוב אחרי העיר':'שמירה למועדפים'))+'</span></button>';}
+function favIcon(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l2.4 5 5.4.6-4 3.7 1.1 5.4L12 16l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';}
+document.addEventListener('click',function(e){var b=e.target.closest('button.fav');if(!b)return;var it=FAV_ITEMS[b.getAttribute('data-fav')];if(!it)return;
+  var on=toggleFav(it);b.setAttribute('aria-pressed',on);$('span',b).textContent=on?(it.type==='city'?'במעקב':'שמור'):(it.type==='city'?'לעקוב אחרי העיר':'שמירה למועדפים');
+  toast(on?'נשמר. אפשר למצוא אותו ב"השמורים שלי"':'הוסר מהשמורים');});
+function updateFavCount(){var n=favs().length,c=$('#favCount');if(!c)return;c.textContent=n;c.hidden=!n;}
+var toastT;function toast(msg){var t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2600);}
+
+/* ---------- personal area ---------- */
+V.me=function(el){
+  var pr=lsGet(PROF_KEY,{}),f=favs(),cities=f.filter(function(x){return x.type==='city';}),other=f.filter(function(x){return x.type!=='city';});
+  var hello=pr.name?'שלום '+esc(pr.name.split(' ')[0])+',':'שלום,';
+  el.innerHTML='<div class="card me-hero"><p class="lead" style="margin:0">'+hello+'<br>כאן נשמר כל מה שחשוב לכם.</p><p class="cap" style="margin:8px 0 0">'+f.length+' פריטים שמורים · '+cities.length+' ערים במעקב</p>'+
+    '<div class="qa">'+qa('#check','בדיקת מחיר','M4 19h16M7 16V9m5 7V5m5 11v-4')+qa('#city','תמונת עיר','M4 20V9l5-4 5 4v11M14 20V12h6v8M4 20h16')+qa('#map','מפה','M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z M9 4v14 M15 6v14')+qa('#vs','עיר מול עיר','M7 4v16M17 4v16M3 9h8M13 15h8')+'</div></div>'+
+    '<div class="card"><h2>הערים שלי</h2><p class="cap">מחיר למ״ר חציוני ושינוי מול שנה שעברה. מתעדכן בכל כניסה.</p><div id="meCities">'+(cities.length?'':'<p class="hint">עוד לא עוקבים אחרי אף עיר. בתמונת עיר לוחצים "לעקוב אחרי העיר".</p><a class="go" href="#city">לבחירת עיר >></a>')+'</div></div>'+
+    '<div class="card"><h2>השמורים שלי</h2>'+(other.length?'<ul class="favlist">'+other.map(function(x){return '<li><a href="'+esc(x.href)+'"><span class="ft">'+esc(FAV_TYPE[x.type]||'')+'</span><b>'+esc(x.title)+'</b>'+(x.sub?'<span class="fs">'+esc(x.sub)+'</span>':'')+'<span class="fd num">נשמר '+dmy(x.at)+'</span></a><button type="button" class="ghost rm" data-key="'+esc(x.key)+'" aria-label="הסרה: '+esc(x.title)+'">הסרה</button></li>';}).join('')+'</ul>':'<p class="hint">כל בדיקת מחיר, כתובת או השוואה אפשר לשמור עם כפתור הכוכב. הן יחכו לכם כאן.</p>')+'</div>'+
+    '<div class="card"><h2>הפרטים שלי</h2><p class="cap">כדי שנדע איך לפנות אליכם כשתקבעו שיחה. נשמר רק במכשיר הזה, לא נשלח לשום מקום.</p>'+
+    '<form id="profForm" class="form" novalidate><div class="f"><label for="pName">שם</label><div class="ip"><input id="pName" name="name" autocomplete="name" maxlength="60" value="'+esc(pr.name||'')+'"></div></div>'+
+    '<div class="f"><label for="pPhone">טלפון</label><div class="ip"><input id="pPhone" name="tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" dir="ltr" value="'+esc(pr.phone||'')+'"></div></div>'+
+    '<div class="f"><label for="pMail">מייל</label><div class="ip"><input id="pMail" name="email" type="email" autocomplete="email" maxlength="80" dir="ltr" value="'+esc(pr.email||'')+'"></div></div>'+
+    '<div class="f"><button class="go" type="submit">שמירה</button></div></form><p class="ferr" id="pErr" role="alert"></p></div>'+
+    '<div class="card"><h2>הגדרות ופרטיות</h2><p class="cap">הכל נשמר בדפדפן שלכם בלבד. אין לנו גישה אליו.</p><div class="cta-row"><button type="button" class="ghost" id="a11yOpen">הגדרות נגישות</button><button type="button" class="ghost" id="meClear">מחיקת כל הנתונים שלי מהמכשיר</button></div></div>'+nextBox();
+  function qa(h,t,d){return '<a class="qa-i" href="'+h+'"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+d+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'+t+'</a>';}
+  $$('.rm',el).forEach(function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-key');lsSet(FAV_KEY,favs().filter(function(x){return x.key!==k;}));updateFavCount();V.me(el);});});
+  $('#profForm').addEventListener('submit',function(e){e.preventDefault();var n=$('#pName').value.trim(),ph=$('#pPhone').value.replace(/[^\d+]/g,''),m=$('#pMail').value.trim(),err=$('#pErr');
+    if(ph&&!/^(\+972|0)\d{8,9}$/.test(ph)){err.textContent='מספר הטלפון לא נראה תקין.';$('#pPhone').focus();return;}
+    if(m&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){err.textContent='כתובת המייל לא נראית תקינה.';$('#pMail').focus();return;}
+    err.textContent='';lsSet(PROF_KEY,{name:n.slice(0,60),phone:ph,email:m.slice(0,80)});toast('הפרטים נשמרו במכשיר');V.me(el);});
+  $('#a11yOpen').addEventListener('click',function(){$('#a11yBtn').click();});
+  $('#meClear').addEventListener('click',function(){if(!confirm('למחוק את כל השמורים, הפרטים וההגדרות מהמכשיר הזה?'))return;try{localStorage.removeItem(FAV_KEY);localStorage.removeItem(PROF_KEY);localStorage.removeItem('invex-a11y');}catch(e){}updateFavCount();toast('הנתונים נמחקו מהמכשיר');V.me(el);});
+  if(cities.length){
+    $('#meCities').innerHTML='<div class="tw"><table class="t"><thead><tr><th>עיר</th><th>₪ למ״ר '+LY+'</th><th>'+TY+' עד היום</th><th>שינוי</th><th></th></tr></thead><tbody>'+cities.map(function(x,i){return '<tr><td class="p"><a class="rowlink" href="'+esc(x.href)+'">'+esc(x.title)+'</a></td><td class="num" id="mc'+i+'a">…</td><td class="num" id="mc'+i+'b">…</td><td class="num" id="mc'+i+'c">…</td><td><button type="button" class="ghost rm" data-key="'+esc(x.key)+'" aria-label="הפסקת מעקב: '+esc(x.title)+'">הסרה</button></td></tr>';}).join('')+'</tbody></table></div>';
+    $$('#meCities .rm').forEach(function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-key');lsSet(FAV_KEY,favs().filter(function(x){return x.key!==k;}));updateFavCount();V.me(el);});});
+    cities.forEach(function(x,i){api('/deals/series',{settlement:x.title,nature:APT}).then(function(j){var by={};(j.data||[]).forEach(function(s){by[s.year]=s;});var a=by[LY],b=by[TY];
+      $('#mc'+i+'a').textContent=a?nf0.format(a.median_ppsqm_normalized):'—';$('#mc'+i+'b').textContent=b?nf0.format(b.median_ppsqm_normalized):'—';
+      var c=$('#mc'+i+'c');if(a&&b){var d=(b.median_ppsqm_normalized/a.median_ppsqm_normalized-1)*100;c.textContent=pct(d,1);c.className='num '+(d>=0?'am':'cy');}else c.textContent='—';}).catch(function(){$('#mc'+i+'a').textContent='—';});});
+  }
+};
+
+/* ================= drawer + tabbar ================= */
+function setDrawer(o){var s=$('#sideNav'),sc=$('#scrim');s.classList.toggle('open',o);sc.hidden=!o;['menuBtn','tbMenu'].forEach(function(id){$('#'+id).setAttribute('aria-expanded',o);});document.body.classList.toggle('noscroll',o);if(o){var a=$('a',s);if(a)a.focus();}}
+$('#menuBtn').addEventListener('click',function(){setDrawer(!$('#sideNav').classList.contains('open'));});
+$('#tbMenu').addEventListener('click',function(){setDrawer(!$('#sideNav').classList.contains('open'));});
+$('#scrim').addEventListener('click',function(){setDrawer(false);});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#sideNav').classList.contains('open')){setDrawer(false);$('#menuBtn').focus();}});
+$('#sideNav').addEventListener('click',function(e){if(e.target.closest('a'))setDrawer(false);});
+$('#abWa').href=LINKS.wa;
+updateFavCount();
+
 /* ================= links in shell ================= */
 ['sBook','mBook'].forEach(function(id){$('#'+id).href=LINKS.book;});
 ['sWa','mWa'].forEach(function(id){var a=$('#'+id);a.href=waGroupUrl();a.textContent=waLabel(id==='mWa');});
@@ -1075,7 +1219,7 @@ V.about=function(el,p){
 /* ================= router ================= */
 function navHTML(cur,flat){
   var a=function(v){return '<a href="#'+v.id+'"'+(v.id===cur?' class="on" aria-current="page"':'')+'><i aria-hidden="true">'+v.ic+'</i>'+v.name+'</a>';};
-  var about=VIEWS.filter(function(v){return v.id==='about';}),rest=VIEWS.filter(function(v){return v.id!=='about';});
+  var TOP=['about','me'],about=TOP.map(function(id){return VIEWS.filter(function(v){return v.id===id;})[0];}),rest=VIEWS.filter(function(v){return TOP.indexOf(v.id)<0;});
   if(flat)return about.concat(rest).map(a).join('');
   return about.map(a).join('')+'<div class="nav-l" style="margin-top:10px">כלים למשקיע</div>'+rest.filter(function(v){return !v.g;}).map(a).join('')+'<div class="nav-l" style="margin-top:14px">INVEX</div>'+rest.filter(function(v){return v.g;}).map(a).join('');
 }
@@ -1092,6 +1236,8 @@ function route(){
   document.title=v.name+' | מדד INVEX למשקיע';
   if(MAP&&v.id!=='map'){MAP.remove();MAP=null;}
   window.scrollTo(0,0);
+  $$('.tabbar a[data-t]').forEach(function(a){var on=a.getAttribute('data-t')===v.id;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  if($('#sideNav').classList.contains('open'))setDrawer(false);
   V[v.id]($('#view'),p);
 }
 api('/deals/settlements').then(function(j){
