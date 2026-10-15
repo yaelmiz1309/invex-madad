@@ -303,6 +303,17 @@ ol.path.mini li.on .ph b{color:var(--txt);font-weight:700}
   ol.path .pt{padding:4px 48px 0 0}
   ol.path.mini{display:none}
 }
+/* DNA tagline */
+.dna{border:1px solid var(--line);border-right:4px solid var(--am);border-radius:0;background:var(--panel);padding:26px 22px;margin:0 0 16px}
+.dna-k{display:block;font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--cy2);margin-bottom:8px}
+.dna p{margin:0;font-size:34px;font-weight:900;line-height:1.15;letter-spacing:-.02em;color:var(--txt)}
+.dna p em{font-style:normal;color:var(--am)}
+.dna-s{display:block;margin-top:10px;font-size:13px;color:var(--mute)}
+.dna.sm{padding:16px 18px}
+.dna.sm p{font-size:22px}
+.dna.sm .dna-s{display:none}
+(max-width:520px){.dna p{font-size:27px}.dna.sm p{font-size:19px}}
+.foot-dna{margin:0 0 14px;font-size:16px;font-weight:700;color:var(--txt)}
 /* footer social icons */
 .social{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 16px}
 .social a{display:inline-flex;flex-direction:column;align-items:center;gap:4px;min-width:64px;min-height:44px;padding:8px 6px;border:1px solid var(--line2);border-radius:12px;text-decoration:none;color:var(--txt);font-size:12px}
@@ -427,6 +438,7 @@ li.ep audio{width:100%;max-width:520px;height:40px;display:block;margin-bottom:4
     </header>
     <div class="content"><div id="pathMini"></div><div id="view"></div></div>
     <footer>
+      <p class="foot-dna">המספרים מספרים את סיפור ההשקעה.</p>
       <nav class="social" aria-label="INVEX ברשתות">
         <a id="soTiktok" href="https://www.tiktok.com/@itayinvex" target="_blank" rel="noopener" aria-label="טיקטוק"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 3c.4 2.6 2.2 4.3 5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>טיקטוק</span></a>
         <a id="soInsta" href="https://www.instagram.com/itay_invex/" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg><span>אינסטגרם</span></a>
@@ -551,6 +563,7 @@ function seg(el,cb){el.addEventListener('click',function(e){var b=e.target.close
 function segHTML(id,opts,on,cls){return '<div class="seg'+(cls?' '+cls:'')+'" id="'+id+'">'+opts.map(function(o){return '<button type="button" data-v="'+o[0]+'"'+(String(o[0])===String(on)?' class="on"':'')+'>'+o[1]+'</button>';}).join('')+'</div>';}
 function cityField(id,label,val){return '<div class="f"><label>'+(label||'יישוב')+'</label><div class="ip"><input id="'+id+'" list="cityList" autocomplete="off" placeholder="מתחילים להקליד…" value="'+esc(val||'')+'"></div></div>';}
 function roomsField(id,val,any){return '<div class="f"><label>חדרים</label><div class="ip"><span class="ar">▾</span><select id="'+id+'">'+(any?'<option value="">הכל</option>':'')+[2,3,4,5,6].map(function(r){return '<option value="'+r+'"'+(String(r)===String(val)?' selected':'')+'>'+(r===6?'6 ומעלה':r)+'</option>';}).join('')+'</select></div></div>';}
+function dnaBox(small){return '<div class="dna'+(small?' sm':'')+'"><span class="dna-k">ה-DNA שלנו</span><p>המספרים מספרים<br>את סיפור <em>ההשקעה</em>.</p><span class="dna-s">רו״ח איתי יצחקיאן · INVEX</span></div>';}
 function itaiBox(id){return '<div class="itai"><div><div class="t">'+esc(ITAI[id])+'</div><div class="s"><b>רו״ח איתי יצחקיאן</b> · INVEX</div></div></div>';}
 function waGroupUrl(){return LINKS.waGroup||LINKS.wa;}
 function waLabel(short){return LINKS.waGroup?(short?'קבוצת ווטסאפ':'הצטרפות לקבוצת הווטסאפ'):'ווטסאפ';}
@@ -735,7 +748,7 @@ function pathHTML(cur){
 
 /* ---------- 01 home ---------- */
 V.home=function(el){
-  el.innerHTML=itaiBox('home')+
+  el.innerHTML=dnaBox(true)+itaiBox('home')+
   '<div class="card"><h2>מאיפה מתחילים?</h2><p class="cap">כותבים יישוב ומקבלים את התמונה המלאה שלו</p>'+
   '<div class="hsearch"><div class="ip"><input id="hCity" list="cityList" autocomplete="off" placeholder="איזה יישוב בודקים?"></div><button class="go" id="hGo">לתמונת העיר >></button></div>'+
   '<div class="hint">יש לכם כתובת מדויקת? <a class="lnk" href="#address">לסיפור הכתובת</a> · יש לכם מחיר מבוקש? <a class="lnk" href="#check">המחיר מול השוק</a></div></div>'+
@@ -1058,6 +1071,7 @@ V.us=function(el,p){
       '<p>אנחנו מלווים משקיעים מקצה לקצה:<br>מהתכנון הפיננסי האישי,<br>דרך איתור העסקה הנכונה ובדיקת המספרים,<br>ועד החתימה, ואחריה.</p>'+
       '<p class="sig">המספרים מספרים את סיפור ההשקעה.<br><span>רו״ח איתי יצחקיאן</span></p></div>'+
       '<img class="who-img" src="itai.png" alt="רו״ח איתי יצחקיאן"></div></div>'+
+      dnaBox()+
       '<div class="grid3"><div class="card"><h2>למה רו״ח?</h2><p class="cap" style="margin:0">בכל עסקה יש מספרים שלא רואים במודעה.<br>מס רכישה. מימון. תזרים. תרחיש יציאה.<br>רואה חשבון רואה אותם קודם.</p></div>'+
       '<div class="card"><h2>מה אנחנו עושים</h2><p class="cap" style="margin:0">תכנון פיננסי אישי.<br>איתור ובדיקת עסקאות.<br>ליווי במימון, במשפטי ובחתימה.<br>ליווי גם אחרי החתימה.</p></div>'+
       '<div class="card"><h2>מה אנחנו לא עושים</h2><p class="cap" style="margin:0">לא מוכרים חלום.<br>לא לוחצים לחתום.<br>אם העסקה לא מתאימה לכם, נגיד את זה.</p></div></div>'+
@@ -1118,7 +1132,7 @@ V.contact=function(el){
 /* ---------- about ---------- */
 V.about=function(el,p){
   function nm(id){return VIEWS.filter(function(v){return v.id===id;})[0];}
-  el.innerHTML='<div class="card"><h2>מה האפליקציה עושה</h2>'+
+  el.innerHTML=dnaBox(true)+'<div class="card"><h2>מה האפליקציה עושה</h2>'+
     '<p class="lead" style="margin:0 0 14px">יש מי שקונה לפי תחושה.<br>ויש מי שקונה לפי עסקאות שנסגרו.<br><b>האפליקציה הזו בשביל השני.</b></p>'+
     '<p class="cap">מדד INVEX למשקיע מסדר את כל עסקאות הנדל"ן שדווחו לרשות המסים מאז 1998, כך שתוכלו לבדוק בעצמכם, בחינם ובלי הרשמה, באיזה מחיר נמכרו דירות, איפה ומתי. 8 כלים, ב-4 שלבים:</p>'+
     pathHTML()+
