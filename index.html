@@ -303,6 +303,16 @@ ol.path.mini li.on .ph b{color:var(--txt);font-weight:700}
   ol.path .pt{padding:4px 48px 0 0}
   ol.path.mini{display:none}
 }
+/* buying power */
+.bp{border-color:rgba(255,149,0,.35)}
+.draft{display:inline-block;font-size:11px;font-weight:700;color:var(--am);border:1px dashed rgba(255,149,0,.6);border-radius:999px;padding:2px 10px;margin-bottom:8px}
+.bp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:12px 0}
+(max-width:620px){.bp-grid{grid-template-columns:1fr}}
+.chk{display:flex;align-items:center;gap:8px;min-height:44px;font-size:14px;color:var(--mute);cursor:pointer}
+.chk input{width:20px;height:20px;accent-color:var(--cy)}
+.bp-out{margin-top:14px}
+.bp-det{margin-top:12px}
+.bp-det summary{cursor:pointer;min-height:44px;display:flex;align-items:center;color:var(--cy2);font-weight:500}
 /* DNA tagline */
 .dna{border:1px solid var(--line);border-right:4px solid var(--am);border-radius:0;background:var(--panel);padding:26px 22px;margin:0 0 16px}
 .dna-k{display:block;font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--cy2);margin-bottom:8px}
@@ -1185,12 +1195,76 @@ document.addEventListener('click',function(e){var b=e.target.closest('button.fav
 function updateFavCount(){var n=favs().length,c=$('#favCount');if(!c)return;c.textContent=n;c.hidden=!n;}
 var toastT;function toast(msg){var t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2600);}
 
+/* ---------- "כוח הקנייה שלי" (per spec, pending CPA sign-off) ---------- */
+var BP_KEY='invex-bp';
+var TAX_BR={single:[[1978745,0],[2347040,.035],[6055070,.05],[20183565,.08],[Infinity,.10]],extra:[[6055070,.08],[Infinity,.10]]};
+function purchaseTax(p,type){var b=TAX_BR[type==='invest'?'extra':'single'],prev=0,t=0;for(var i=0;i<b.length;i++){if(p<=prev)break;t+=(Math.min(p,b[i][0])-prev)*b[i][1];prev=b[i][0];}return t;}
+var LTV={single:.75,upgrade:.70,invest:.50};
+var VAT=1.18,FEE_INVEX=.02,FEE_LAW=.004,COST_RATE=(FEE_INVEX+FEE_LAW)*VAT;
+var BUCKETS=[[250000,'100K-250K'],[500000,'250K-500K'],[750000,'500K-750K'],[1000000,'750K-1M'],[1500000,'1M-1.5M'],[Infinity,'1.5M+']];
+function bucketOf(v){if(!(v>=100000))return 'מתחת ל-100K';for(var i=0;i<BUCKETS.length;i++)if(v<BUCKETS[i][0])return BUCKETS[i][1];return '1.5M+';}
+function bpFields(){return [
+  ['osh','עו״ש','₪'],
+  ['deposits','פיקדונות','₪'],
+  ['savings','חסכונות (תוכניות חיסכון בבנק)','₪'],
+  ['hish','קרן השתלמות שכבר נזילה','₪'],
+  ['invest','תיק השקעות / קופת גמל להשקעה','₪'],
+  ['homeValue','דירה קיימת: שווי משוער (אם יש)','₪'],
+  ['homeMortgage','דירה קיימת: יתרת משכנתה','₪']];}
+function bpCalc(d){
+  var n=function(k){var v=+String(d[k]||'').replace(/[^\d.]/g,'');return isFinite(v)?v:0;};
+  var lines=[],tot=0;function add(t,v,note){if(v){lines.push([t,v,note||'']);tot+=v;}}
+  add('עו״ש',n('osh'));
+  add('פיקדונות',n('deposits'));
+  add('חסכונות',n('savings'));
+  add('קרן השתלמות נזילה',n('hish'));
+  add('השקעות, אחרי מס משוער',Math.round(n('invest')*.925),'הערכה: מס רווח הון על חלק מהשווי');
+  var homeEq=Math.max(0,n('homeValue')-n('homeMortgage'));
+  var rel=(d.type==='upgrade')?.70:.50;
+  if(d.useHome==='yes')add('הון מהדירה הקיימת (משכנתה עד '+Math.round(rel*100)+'% משוויה)',Math.max(0,n('homeValue')*rel-n('homeMortgage')),'לאמת מול יועץ משכנתאות');
+  var type=d.type||'single',ltv=LTV[type],eq=Math.max(0,tot);
+  function need(p){return p*(1-ltv)+purchaseTax(p,type)+p*COST_RATE;}
+  var lo=0,hi=60000000;for(var i=0;i<60;i++){var m=(lo+hi)/2;if(need(m)<=eq)lo=m;else hi=m;}
+  return {lines:lines,equity:eq,price:eq>15000?lo:0,ltv:ltv,type:type,homeEq:homeEq,tax:purchaseTax(lo,type)};
+}
+function bpCardHTML(){
+  return '<div class="card bp" id="bpCard"><h2>כוח הקנייה שלי</h2>'+
+  '<p class="lead" style="margin:0 0 6px">המספרים מספרים את סיפור ההשקעה.<br>אבל קודם צריך לדעת מה <b>המספרים שלכם</b>.</p>'+
+  '<p class="cap">דקה אחת. ממלאים רק מה שיש. <b>החישוב נעשה רק במכשיר שלכם.</b></p>'+
+  '<form id="bpForm" novalidate><div class="f"><label>איזו דירה תהיה זו עבורכם?</label>'+segHTML('bpType',[['single','דירה יחידה'],['upgrade','משפרי דיור'],['invest','דירה להשקעה']],'single')+'</div>'+
+  '<div class="bp-grid">'+bpFields().map(function(f){return '<div class="f"><label for="bp_'+f[0]+'">'+f[1]+'</label><div class="ip'+(f[2]?' has-u':'')+'"><input id="bp_'+f[0]+'" name="'+f[0]+'" inputmode="numeric" autocomplete="off"'+(f[0]==='cushion'?' placeholder="6"':'')+'>'+(f[2]?'<span class="u">'+f[2]+'</span>':'')+'</div></div>';}).join('')+'</div>'+
+  '<div class="f"><label>להשתמש בהון שבדירה הקיימת?</label>'+segHTML('bpHome',[['no','לא'],['yes','כן, משכנתה עליה']],'no')+'<div class="hint"><a class="lnk" href="#check">להערכת שווי לפי עסקאות אמת >></a></div></div>'+
+  '<label class="chk"><input type="checkbox" id="bpRemember"> לזכור את המספרים במכשיר הזה</label></form>'+
+  '<div class="bp-out" id="bpOut" aria-live="polite"></div></div>';
+}
+function bpInit(){
+  var form=$('#bpForm');if(!form)return;var type=seg($('#bpType'),run),home=seg($('#bpHome'),run);
+  var saved=lsGet(BP_KEY,null);if(saved){$('#bpRemember').checked=true;Object.keys(saved).forEach(function(k){var i=$('#bp_'+k);if(i)i.value=saved[k];});if(saved.type)type(saved.type);if(saved.useHome)home(saved.useHome);}
+  function read(){var d={type:type(),useHome:home()};bpFields().forEach(function(f){d[f[0]]=$('#bp_'+f[0]).value;});return d;}
+  function run(){if(home()==="yes"&&type()==="single")type("upgrade");var d=read();if($('#bpRemember').checked)lsSet(BP_KEY,d);else{try{localStorage.removeItem(BP_KEY);}catch(e){}}
+    var r=bpCalc(d),tn={single:'דירה יחידה',upgrade:'משפרי דיור',invest:'דירה להשקעה'}[r.type];
+    if(!r.lines.some(function(l){return l[1]>0;})){$('#bpOut').innerHTML='<p class="hint">מלאו לפחות סכום אחד, והחישוב יופיע כאן.</p>';return;}
+    $('#bpOut').innerHTML='<div class="grid3"><div class="kpi"><div class="v num cy">'+ils(r.equity)+'</div><div class="l">ההון שלכם להשקעה</div></div>'+
+      '<div class="kpi"><div class="v num am">'+(r.price?ils(Math.floor(r.price/10000)*10000):'—')+'</div><div class="l">כוח קנייה: דירה עד ('+tn+', מימון '+Math.round(r.ltv*100)+'%)</div></div>'+
+      '<div class="kpi"><div class="v num">'+bucketOf(r.equity)+'</div><div class="l">דלי הון</div></div></div>'+
+      '<details class="bp-det"><summary>פירוט החישוב</summary><table class="t"><tbody>'+r.lines.map(function(l){return '<tr><td>'+l[0]+(l[2]?'<div class="mu" style="font-size:12px">'+l[2]+'</div>':'')+'</td><td class="num p">'+(l[1]<0?'−':'')+ils(Math.abs(l[1]))+'</td></tr>';}).join('')+
+      '<tr><td><b>הון להשקעה</b></td><td class="num p"><b>'+ils(r.equity)+'</b></td></tr>'+(r.price?'<tr><td>מתוכו: מס רכישה משוער על דירה ב-'+ils(r.price)+'</td><td class="num">'+ils(r.tax)+'</td></tr><tr><td>ליווי INVEX (2% + מע״מ)</td><td class="num">'+ils(r.price*FEE_INVEX*VAT)+'</td></tr><tr><td>עו״ד (0.4% + מע״מ)</td><td class="num">'+ils(r.price*FEE_LAW*VAT)+'</td></tr>':'')+'</tbody></table>'+
+      (r.locked?'<p class="hint">קרן השתלמות שעוד לא נזילה ('+ils(r.locked)+') לא נספרה. משיכה מוקדמת חייבת במס גבוה.</p>':'')+(r.pension?'<p class="hint">פנסיה וגמל לפרישה ('+ils(r.pension)+') מוצגים לידיעה בלבד, ולא נספרים.</p>':'')+
+      (r.type==='upgrade'?'<p class="hint">משפרי דיור: מס הרכישה חושב כדירה יחידה, בהנחה שהדירה הקודמת תימכר בתוך 18 חודשים.</p>':'')+'</details>'+
+      '<p class="disc-big" style="margin-top:12px">חישוב להמחשה בלבד, לפי הנתונים שהזנתם וכללים כלליים. אינו ייעוץ השקעות, ייעוץ מס או אישור משכנתה. הבנק יבדוק גם את ההכנסה.</p>'+
+      '<div class="cta-row" style="margin-top:12px"><a class="go" href="'+LINKS.book+'" target="_blank" rel="noopener">לבדוק את זה איתנו בשיחה >></a><a class="ghost" href="'+PRESALE+'" target="_blank" rel="noopener">מחשבון פריסייל</a></div>'+
+      '<p class="hint" style="margin-top:10px">שאלות על מס רכישה, רישום על ילד או דירה חליפית? <a class="lnk" href="https://wa.me/972533233663?text='+encodeURIComponent('היי פוקסי, יש לי שאלה על ')+'" target="_blank" rel="noopener">שאלו את פוקסי בווטסאפ >></a></p>';
+  }
+  form.addEventListener('input',run);form.addEventListener('change',run);run();
+}
+
 /* ---------- personal area ---------- */
 V.me=function(el){
   var pr=lsGet(PROF_KEY,{}),f=favs(),cities=f.filter(function(x){return x.type==='city';}),other=f.filter(function(x){return x.type!=='city';});
   var hello=pr.name?'שלום '+esc(pr.name.split(' ')[0])+',':'שלום,';
   el.innerHTML='<div class="card me-hero"><p class="lead" style="margin:0">'+hello+'<br>כאן נשמר כל מה שחשוב לכם.</p><p class="cap" style="margin:8px 0 0">'+f.length+' פריטים שמורים · '+cities.length+' ערים במעקב</p>'+
     '<div class="qa">'+qa('#check','בדיקת מחיר','M4 19h16M7 16V9m5 7V5m5 11v-4')+qa('#city','תמונת עיר','M4 20V9l5-4 5 4v11M14 20V12h6v8M4 20h16')+qa('#map','מפה','M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z M9 4v14 M15 6v14')+qa('#vs','עיר מול עיר','M7 4v16M17 4v16M3 9h8M13 15h8')+'</div></div>'+
+    bpCardHTML()+
     '<div class="card"><h2>הערים שלי</h2><p class="cap">מחיר למ״ר חציוני ושינוי מול שנה שעברה. מתעדכן בכל כניסה.</p><div id="meCities">'+(cities.length?'':'<p class="hint">עוד לא עוקבים אחרי אף עיר. בתמונת עיר לוחצים "לעקוב אחרי העיר".</p><a class="go" href="#city">לבחירת עיר >></a>')+'</div></div>'+
     '<div class="card"><h2>השמורים שלי</h2>'+(other.length?'<ul class="favlist">'+other.map(function(x){return '<li><a href="'+esc(x.href)+'"><span class="ft">'+esc(FAV_TYPE[x.type]||'')+'</span><b>'+esc(x.title)+'</b>'+(x.sub?'<span class="fs">'+esc(x.sub)+'</span>':'')+'<span class="fd num">נשמר '+dmy(x.at)+'</span></a><button type="button" class="ghost rm" data-key="'+esc(x.key)+'" aria-label="הסרה: '+esc(x.title)+'">הסרה</button></li>';}).join('')+'</ul>':'<p class="hint">כל בדיקת מחיר, כתובת או השוואה אפשר לשמור עם כפתור הכוכב. הן יחכו לכם כאן.</p>')+'</div>'+
     '<div class="card"><h2>הפרטים שלי</h2><p class="cap">כדי שנדע איך לפנות אליכם כשתקבעו שיחה. נשמר רק במכשיר הזה, לא נשלח לשום מקום.</p>'+
@@ -1206,6 +1280,7 @@ V.me=function(el){
     if(m&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){err.textContent='כתובת המייל לא נראית תקינה.';$('#pMail').focus();return;}
     err.textContent='';lsSet(PROF_KEY,{name:n.slice(0,60),phone:ph,email:m.slice(0,80)});toast('הפרטים נשמרו במכשיר');V.me(el);});
   $('#a11yOpen').addEventListener('click',function(){$('#a11yBtn').click();});
+  bpInit();
   $('#meClear').addEventListener('click',function(){if(!confirm('למחוק את כל השמורים, הפרטים וההגדרות מהמכשיר הזה?'))return;try{localStorage.removeItem(FAV_KEY);localStorage.removeItem(PROF_KEY);localStorage.removeItem('invex-a11y');}catch(e){}updateFavCount();toast('הנתונים נמחקו מהמכשיר');V.me(el);});
   if(cities.length){
     $('#meCities').innerHTML='<div class="tw"><table class="t"><thead><tr><th>עיר</th><th>₪ למ״ר '+LY+'</th><th>'+TY+' עד היום</th><th>שינוי</th><th></th></tr></thead><tbody>'+cities.map(function(x,i){return '<tr><td class="p"><a class="rowlink" href="'+esc(x.href)+'">'+esc(x.title)+'</a></td><td class="num" id="mc'+i+'a">…</td><td class="num" id="mc'+i+'b">…</td><td class="num" id="mc'+i+'c">…</td><td><button type="button" class="ghost rm" data-key="'+esc(x.key)+'" aria-label="הפסקת מעקב: '+esc(x.title)+'">הסרה</button></td></tr>';}).join('')+'</tbody></table></div>';
