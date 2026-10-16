@@ -26,7 +26,19 @@ body{background:var(--bg);color:var(--txt);font-family:"Rubik",-apple-system,"Se
 a{color:inherit}
 button,input,select{font-family:inherit}
 /* ===== shell ===== */
-.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.shell{display:grid;grid-template-columns:250px 1fr 96px;min-height:100vh}
+.prail{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:18px 8px;background:var(--panel);border-right:1px solid var(--line)}
+.pr-t{font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--dim);text-align:center;line-height:1.3;margin-bottom:6px}
+.pr-i{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:64px;justify-content:center;padding:8px 4px;border-radius:12px;text-decoration:none;color:var(--mute);font-size:11.5px;text-align:center;border:1px solid transparent}
+.pr-i svg{width:24px;height:24px}
+.pr-i:hover{color:var(--txt);background:var(--panel2)}
+.pr-i.on{color:var(--cy2);background:var(--panel2);border-color:var(--line2)}
+.pr-main{color:#001314;background:var(--cy)}
+.pr-main:hover{color:#001314;background:var(--cy2)}
+.pr-wa{color:#25D366}
+.pr-sep{height:1px;background:var(--line);margin:6px 4px}
+.pr-c{position:absolute;top:6px;left:14px;min-width:18px;height:18px;border-radius:9px;background:var(--am);color:#07080A;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.pr-c[hidden]{display:none}
 .side{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-left:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column}
 .brand{display:block;text-decoration:none;padding:0 8px 18px;border-bottom:1px solid var(--line);margin-bottom:14px}
 .brand img{height:30px;display:block}
@@ -59,6 +71,7 @@ button,input,select{font-family:inherit}
 .mnav{display:none}
 @media(max-width:900px){
   .shell{grid-template-columns:1fr}
+  .prail{display:none}
   .side{display:none}
   .mnav{display:flex;gap:6px;overflow-x:auto;position:sticky;top:0;z-index:50;background:rgba(7,8,10,.97);border-bottom:1px solid var(--line);padding:10px 12px;scrollbar-width:none}
   .mnav::-webkit-scrollbar{display:none}
@@ -460,6 +473,16 @@ li.ep audio{width:100%;max-width:520px;height:40px;display:block;margin-bottom:4
       <div style="margin-top:6px"><a href="#about">אודות והצהרת נגישות</a> · <a href="#contact">צור קשר</a> · INVEX · בית השקעות לנדל"ן · רו"ח איתי יצחקיאן · <b>פיתוח ע״י יעל מזרחי</b></div>
     </footer>
   </div>
+  <aside class="prail" aria-label="האזור האישי">
+    <span class="pr-t">האזור<br>האישי</span>
+    <a href="#me" data-s="" class="pr-i"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>שלי</span></a>
+    <a href="#me?s=bp" data-s="bp" class="pr-i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v9h14v-9M10 19v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>כוח הקנייה</span></a>
+    <a href="#me?s=saved" data-s="saved" class="pr-i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l2.4 5 5.4.6-4 3.7 1.1 5.4L12 16l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>השמורים</span><b class="pr-c" id="favCount2" hidden></b></a>
+    <a href="#me?s=cities" data-s="cities" class="pr-i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l5-4 5 4v11M14 20V12h6v8M4 20h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>הערים שלי</span></a>
+    <span class="pr-sep"></span>
+    <a id="prBook" href="#" target="_blank" rel="noopener" class="pr-i pr-main"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h3l1.5 4.5-2 1.3a11 11 0 0 0 6.7 6.7l1.3-2L21 15v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>קביעת שיחה</span></a>
+    <a id="prWa" href="#" target="_blank" rel="noopener" class="pr-i pr-wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8.3 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>ווטסאפ</span></a>
+  </aside>
 </div>
 <nav class="tabbar" aria-label="ניווט מהיר">
   <a href="#home" data-t="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>בית</span></a>
@@ -1192,7 +1215,7 @@ function favIcon(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="
 document.addEventListener('click',function(e){var b=e.target.closest('button.fav');if(!b)return;var it=FAV_ITEMS[b.getAttribute('data-fav')];if(!it)return;
   var on=toggleFav(it);b.setAttribute('aria-pressed',on);$('span',b).textContent=on?(it.type==='city'?'במעקב':'שמור'):(it.type==='city'?'לעקוב אחרי העיר':'שמירה למועדפים');
   toast(on?'נשמר. אפשר למצוא אותו ב"השמורים שלי"':'הוסר מהשמורים');});
-function updateFavCount(){var n=favs().length,c=$('#favCount');if(!c)return;c.textContent=n;c.hidden=!n;}
+function updateFavCount(){var n=favs().length;['#favCount','#favCount2'].forEach(function(id){var c=$(id);if(c){c.textContent=n;c.hidden=!n;}});}
 var toastT;function toast(msg){var t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2600);}
 
 /* ---------- "כוח הקנייה שלי" (per spec, pending CPA sign-off) ---------- */
@@ -1259,14 +1282,14 @@ function bpInit(){
 }
 
 /* ---------- personal area ---------- */
-V.me=function(el){
+V.me=function(el,p){p=p||{};
   var pr=lsGet(PROF_KEY,{}),f=favs(),cities=f.filter(function(x){return x.type==='city';}),other=f.filter(function(x){return x.type!=='city';});
   var hello=pr.name?'שלום '+esc(pr.name.split(' ')[0])+',':'שלום,';
   el.innerHTML='<div class="card me-hero"><p class="lead" style="margin:0">'+hello+'<br>כאן נשמר כל מה שחשוב לכם.</p><p class="cap" style="margin:8px 0 0">'+f.length+' פריטים שמורים · '+cities.length+' ערים במעקב</p>'+
     '<div class="qa">'+qa('#check','בדיקת מחיר','M4 19h16M7 16V9m5 7V5m5 11v-4')+qa('#city','תמונת עיר','M4 20V9l5-4 5 4v11M14 20V12h6v8M4 20h16')+qa('#map','מפה','M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z M9 4v14 M15 6v14')+qa('#vs','עיר מול עיר','M7 4v16M17 4v16M3 9h8M13 15h8')+'</div></div>'+
     bpCardHTML()+
-    '<div class="card"><h2>הערים שלי</h2><p class="cap">מחיר למ״ר חציוני ושינוי מול שנה שעברה. מתעדכן בכל כניסה.</p><div id="meCities">'+(cities.length?'':'<p class="hint">עוד לא עוקבים אחרי אף עיר. בתמונת עיר לוחצים "לעקוב אחרי העיר".</p><a class="go" href="#city">לבחירת עיר >></a>')+'</div></div>'+
-    '<div class="card"><h2>השמורים שלי</h2>'+(other.length?'<ul class="favlist">'+other.map(function(x){return '<li><a href="'+esc(x.href)+'"><span class="ft">'+esc(FAV_TYPE[x.type]||'')+'</span><b>'+esc(x.title)+'</b>'+(x.sub?'<span class="fs">'+esc(x.sub)+'</span>':'')+'<span class="fd num">נשמר '+dmy(x.at)+'</span></a><button type="button" class="ghost rm" data-key="'+esc(x.key)+'" aria-label="הסרה: '+esc(x.title)+'">הסרה</button></li>';}).join('')+'</ul>':'<p class="hint">כל בדיקת מחיר, כתובת או השוואה אפשר לשמור עם כפתור הכוכב. הן יחכו לכם כאן.</p>')+'</div>'+
+    '<div class="card" id="meCitiesCard"><h2>הערים שלי</h2><p class="cap">מחיר למ״ר חציוני ושינוי מול שנה שעברה. מתעדכן בכל כניסה.</p><div id="meCities">'+(cities.length?'':'<p class="hint">עוד לא עוקבים אחרי אף עיר. בתמונת עיר לוחצים "לעקוב אחרי העיר".</p><a class="go" href="#city">לבחירת עיר >></a>')+'</div></div>'+
+    '<div class="card" id="meSavedCard"><h2>השמורים שלי</h2>'+(other.length?'<ul class="favlist">'+other.map(function(x){return '<li><a href="'+esc(x.href)+'"><span class="ft">'+esc(FAV_TYPE[x.type]||'')+'</span><b>'+esc(x.title)+'</b>'+(x.sub?'<span class="fs">'+esc(x.sub)+'</span>':'')+'<span class="fd num">נשמר '+dmy(x.at)+'</span></a><button type="button" class="ghost rm" data-key="'+esc(x.key)+'" aria-label="הסרה: '+esc(x.title)+'">הסרה</button></li>';}).join('')+'</ul>':'<p class="hint">כל בדיקת מחיר, כתובת או השוואה אפשר לשמור עם כפתור הכוכב. הן יחכו לכם כאן.</p>')+'</div>'+
     '<div class="card"><h2>הפרטים שלי</h2><p class="cap">כדי שנדע איך לפנות אליכם כשתקבעו שיחה. נשמר רק במכשיר הזה, לא נשלח לשום מקום.</p>'+
     '<form id="profForm" class="form" novalidate><div class="f"><label for="pName">שם</label><div class="ip"><input id="pName" name="name" autocomplete="name" maxlength="60" value="'+esc(pr.name||'')+'"></div></div>'+
     '<div class="f"><label for="pPhone">טלפון</label><div class="ip"><input id="pPhone" name="tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" dir="ltr" value="'+esc(pr.phone||'')+'"></div></div>'+
@@ -1281,6 +1304,7 @@ V.me=function(el){
     err.textContent='';lsSet(PROF_KEY,{name:n.slice(0,60),phone:ph,email:m.slice(0,80)});toast('הפרטים נשמרו במכשיר');V.me(el);});
   $('#a11yOpen').addEventListener('click',function(){$('#a11yBtn').click();});
   bpInit();
+  var tgt={bp:'#bpCard',saved:'#meSavedCard',cities:'#meCitiesCard'}[p.s];if(tgt)setTimeout(function(){var t=$(tgt);if(t)t.scrollIntoView({block:'start'});},60);
   $('#meClear').addEventListener('click',function(){if(!confirm('למחוק את כל השמורים, הפרטים וההגדרות מהמכשיר הזה?'))return;try{localStorage.removeItem(FAV_KEY);localStorage.removeItem(PROF_KEY);localStorage.removeItem('invex-a11y');}catch(e){}updateFavCount();toast('הנתונים נמחקו מהמכשיר');V.me(el);});
   if(cities.length){
     $('#meCities').innerHTML='<div class="tw"><table class="t"><thead><tr><th>עיר</th><th>₪ למ״ר '+LY+'</th><th>'+TY+' עד היום</th><th>שינוי</th><th></th></tr></thead><tbody>'+cities.map(function(x,i){return '<tr><td class="p"><a class="rowlink" href="'+esc(x.href)+'">'+esc(x.title)+'</a></td><td class="num" id="mc'+i+'a">…</td><td class="num" id="mc'+i+'b">…</td><td class="num" id="mc'+i+'c">…</td><td><button type="button" class="ghost rm" data-key="'+esc(x.key)+'" aria-label="הפסקת מעקב: '+esc(x.title)+'">הסרה</button></td></tr>';}).join('')+'</tbody></table></div>';
@@ -1298,7 +1322,7 @@ $('#tbMenu').addEventListener('click',function(){setDrawer(!$('#sideNav').classL
 $('#scrim').addEventListener('click',function(){setDrawer(false);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#sideNav').classList.contains('open')){setDrawer(false);$('#menuBtn').focus();}});
 $('#sideNav').addEventListener('click',function(e){if(e.target.closest('a'))setDrawer(false);});
-$('#abWa').href=LINKS.wa;
+$('#abWa').href=LINKS.wa;$('#prBook').href=LINKS.book;$('#prWa').href=LINKS.wa;
 updateFavCount();
 
 /* ================= links in shell ================= */
@@ -1308,7 +1332,7 @@ updateFavCount();
 /* ================= router ================= */
 function navHTML(cur,flat){
   var a=function(v){return '<a href="#'+v.id+'"'+(v.id===cur?' class="on" aria-current="page"':'')+'><i aria-hidden="true">'+v.ic+'</i>'+v.name+'</a>';};
-  var TOP=['about','me'],about=TOP.map(function(id){return VIEWS.filter(function(v){return v.id===id;})[0];}),rest=VIEWS.filter(function(v){return TOP.indexOf(v.id)<0;});
+  var TOP=['about'],about=TOP.map(function(id){return VIEWS.filter(function(v){return v.id===id;})[0];}),rest=VIEWS.filter(function(v){return TOP.indexOf(v.id)<0&&v.id!=='me';});
   if(flat)return about.concat(rest).map(a).join('');
   return about.map(a).join('')+'<div class="nav-l" style="margin-top:10px">כלים למשקיע</div>'+rest.filter(function(v){return !v.g;}).map(a).join('')+'<div class="nav-l" style="margin-top:14px">INVEX</div>'+rest.filter(function(v){return v.g;}).map(a).join('');
 }
@@ -1325,6 +1349,7 @@ function route(){
   document.title=v.name+' | מדד INVEX למשקיע';
   if(MAP&&v.id!=='map'){MAP.remove();MAP=null;}
   window.scrollTo(0,0);
+  $$('.prail a[data-s]').forEach(function(a){var on=v.id==='me'&&(a.getAttribute('data-s')||'')===(p.s||'');a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   $$('.tabbar a[data-t]').forEach(function(a){var on=a.getAttribute('data-t')===v.id;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   if($('#sideNav').classList.contains('open'))setDrawer(false);
   V[v.id]($('#view'),p);
