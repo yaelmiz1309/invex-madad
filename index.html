@@ -326,6 +326,17 @@ ol.path.mini li.on .ph b{color:var(--txt);font-weight:700}
 .bp-out{margin-top:14px}
 .bp-det{margin-top:12px}
 .bp-det summary{cursor:pointer;min-height:44px;display:flex;align-items:center;color:var(--cy2);font-weight:500}
+/* photos */
+.itai-av{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 12%;background:#1b2024;border:2px solid var(--am);flex:none}
+.proof{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin:0 0 16px}
+(max-width:620px){.proof{grid-template-columns:1fr}}
+.ph-stage{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.ph-stage img{display:block;width:100%;height:340px;object-fit:cover;object-position:50% 25%}
+.ph-stage figcaption{padding:12px 16px;font-size:14px;color:var(--mute)}
+.ph-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.ph-badge img{width:150px;height:150px}
+.ph-badge p{margin:0;font-size:14px;color:var(--mute)}
+.ph-badge b{color:var(--txt);font-size:16px}
 /* DNA tagline */
 .dna{border:1px solid var(--line);border-right:4px solid var(--am);border-radius:0;background:var(--panel);padding:26px 22px;margin:0 0 16px}
 .dna-k{display:block;font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--cy2);margin-bottom:8px}
@@ -597,7 +608,7 @@ function segHTML(id,opts,on,cls){return '<div class="seg'+(cls?' '+cls:'')+'" id
 function cityField(id,label,val){return '<div class="f"><label>'+(label||'יישוב')+'</label><div class="ip"><input id="'+id+'" list="cityList" autocomplete="off" placeholder="מתחילים להקליד…" value="'+esc(val||'')+'"></div></div>';}
 function roomsField(id,val,any){return '<div class="f"><label>חדרים</label><div class="ip"><span class="ar">▾</span><select id="'+id+'">'+(any?'<option value="">הכל</option>':'')+[2,3,4,5,6].map(function(r){return '<option value="'+r+'"'+(String(r)===String(val)?' selected':'')+'>'+(r===6?'6 ומעלה':r)+'</option>';}).join('')+'</select></div></div>';}
 function dnaBox(small){return '<div class="dna'+(small?' sm':'')+'"><span class="dna-k">ה-DNA שלנו</span><p>המספרים מספרים<br>את סיפור <em>ההשקעה</em>.</p><span class="dna-s">רו״ח איתי יצחקיאן · INVEX</span></div>';}
-function itaiBox(id){return '<div class="itai"><div><div class="t">'+esc(ITAI[id])+'</div><div class="s"><b>רו״ח איתי יצחקיאן</b> · INVEX</div></div></div>';}
+function itaiBox(id){return '<div class="itai"><img class="itai-av" src="itai.png" alt="רו״ח איתי יצחקיאן" width="56" height="56" loading="lazy"><div><div class="t">'+esc(ITAI[id])+'</div><div class="s"><b>רו״ח איתי יצחקיאן</b> · INVEX</div></div></div>';}
 function waGroupUrl(){return LINKS.waGroup||LINKS.wa;}
 function waLabel(short){return LINKS.waGroup?(short?'קבוצת ווטסאפ':'הצטרפות לקבוצת הווטסאפ'):'ווטסאפ';}
 function nextBox(){
@@ -1105,6 +1116,8 @@ V.us=function(el,p){
       '<p class="sig">המספרים מספרים את סיפור ההשקעה.<br><span>רו״ח איתי יצחקיאן</span></p></div>'+
       '<img class="who-img" src="itai.png" alt="רו״ח איתי יצחקיאן"></div></div>'+
       dnaBox()+
+      '<div class="proof"><figure class="ph-stage"><img src="stage.jpg" alt="רו״ח איתי יצחקיאן מרצה מול משקיעים" loading="lazy"><figcaption>על הבמה, מול משקיעים. כך נראית הדרך שלנו: מספרים על המסך, ושאלות מהקהל.</figcaption></figure>'+
+      '<div class="ph-badge"><img src="badge40.png" alt="40 Under 40 · הצעירים המבטיחים 2025" width="150" height="150" loading="lazy"><p><b>40 Under 40</b><br>הצעירים המבטיחים 2025</p></div></div>'+
       '<div class="grid3"><div class="card"><h2>למה רו״ח?</h2><p class="cap" style="margin:0">בכל עסקה יש מספרים שלא רואים במודעה.<br>מס רכישה. מימון. תזרים. תרחיש יציאה.<br>רואה חשבון רואה אותם קודם.</p></div>'+
       '<div class="card"><h2>מה אנחנו עושים</h2><p class="cap" style="margin:0">תכנון פיננסי אישי.<br>איתור ובדיקת עסקאות.<br>ליווי במימון, במשפטי ובחתימה.<br>ליווי גם אחרי החתימה.</p></div>'+
       '<div class="card"><h2>מה אנחנו לא עושים</h2><p class="cap" style="margin:0">לא מוכרים חלום.<br>לא לוחצים לחתום.<br>אם העסקה לא מתאימה לכם, נגיד את זה.</p></div></div>'+
